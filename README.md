@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js with Parse Server
 
-## Getting Started
+This project integrates Next.js for the frontend with Parse Server as a backend, all served through Express.js. It provides a full-stack solution with a powerful backend and a modern React-based frontend.
 
-First, run the development server:
+## Features
 
+- **Next.js Frontend**: Modern React framework with server-side rendering
+- **Parse Server Backend**: Fully featured backend-as-a-service
+- **Express.js**: Custom server configuration
+- **Parse Dashboard**: Built-in admin interface for data management
+- **TypeScript Support**: Full type safety across the stack
+- **Development Tools**: Hot reloading, debugging, and more
+
+## Prerequisites
+
+- Node.js (v18 or higher recommended)
+- pnpm package manager
+- MongoDB (for Parse Server database)
+
+## Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <your-repo-url>
+cd <your-project-name>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Parse Server
+APP_ID=your_app_id
+MASTER_KEY=your_master_key
+SERVER_URL=http://localhost:1337/parse
+PARSE_MOUNT=/parse
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Database
+DATABASE_URI=mongodb://localhost:27017/your_database_name
 
-## Learn More
+# Next.js
+NEXT_PUBLIC_APP_ID=your_app_id
+NEXT_PUBLIC_SERVER_URL=http://localhost:1337/parse
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm dev:all
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Server side
+We can use parse from "parse/node
 
-## Deploy on Vercel
+```javascript
+import Parse from 'parse/node';
+``` 
+ to access the parse server from the backend.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Client side
+We can use parse from "parse" to access the parse server from the frontend.
+```javascript
+import Parse from 'parse';
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+

@@ -3,25 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "prebuild": "rimraf .next",
+    "dev": "NODE_ENV=development npm run prebuild && nodemon server/server.mjs",
+    "dev:all": "concurrently \"npm run cloud:watch\" \"npm run dev\"",
+    "build": "npm run cloud && next build",
+    "start": "NODE_ENV=production node server/server.mjs",
+    "lint": "next lint",
+    "cloud": "tsc -p tsconfig.cloud.json",
+    "cloud:watch": "tsc -p tsconfig.cloud.json --watch"
   },
   "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "glob": "^11.0.2",
+    "next": "15.1.8",
+    "parse": "^6.1.1",
+    "parse-dashboard": "^7.1.0",
+    "parse-server": "^8.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.1.8"
+    "rimraf": "^6.0.1"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@types/express": "^5.0.2",
     "@types/node": "^20",
+    "@types/parse": "^3.0.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "concurrently": "^9.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.1.8",
-    "@eslint/eslintrc": "^3"
+    "nodemon": "^3.1.10",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
