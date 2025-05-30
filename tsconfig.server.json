@@ -2,13 +2,14 @@
   "compilerOptions": {
     "target": "ES2017",
     "module": "CommonJS",
-    "outDir": "./server/cloud",
-    "rootDir": "./server/cloudTs",
+    "outDir": "./dist",
+    "rootDir": "./server",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
   },
-  "include": ["server/cloudTs/**/*"],
+  "include": ["server/**/*"],
   "exclude": ["node_modules"]
 }

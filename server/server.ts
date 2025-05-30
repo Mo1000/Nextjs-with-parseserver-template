@@ -2,18 +2,16 @@
 import {ParseServer} from "parse-server";
 import express from "express";
 import next from "next";
-import {fileURLToPath} from "url";
-import {dirname} from "path";
+//@ts-ignore
 import ParseDashboard from "parse-dashboard";
 import dotenv from "dotenv";
-import {Config} from "../src/constantes/config.mjs";
+import {schedulerAdapter} from "./src/scheduler/dashboard";
+import { Config } from "./src/constantes/config";
 
 
 dotenv.config();
 
 const NODE_ENV = Config.NODE_ENV;
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
 
 const databaseURI = Config.DATABASE_URI, // Connection string for your MongoDB database
     cloud = Config.CLOUD_FOLDER, // Path to your Cloud Code
@@ -21,7 +19,8 @@ const databaseURI = Config.DATABASE_URI, // Connection string for your MongoDB d
     masterKey = Config.MASTER_KEY, // Keep this key secret!
     javascriptKey = Config.JAVASCRIPT_KEY,
     serverURL = Config.SERVER_URL;
-const serverParse = new ParseServer({
+
+const parseConfig = {
     cloud,
     databaseURI,
     appId,
@@ -34,7 +33,8 @@ const serverParse = new ParseServer({
     allowClientClassCreation: true,
     allowExpiredAuthDataToken: false,
     encodeParseObjectInCloudFunction: true,
-});
+}
+const serverParse =  ParseServer(parseConfig as any);
 
 const optionsDashboard = {
     allowInsecureHTTP: true,
@@ -71,8 +71,14 @@ const handle = app.getRequestHandler();
 const server = express();
 
 // Serve the Parse API on the /parse URL prefix
-server.use(Config.PATH_PARSE_URL, serverParse.app);
-server.use("/dashboard-api", dashboard);
+const prefix=Config.PATH_PREFIX_SERVER;
+server.use(prefix.concat(Config.PATH_PARSE_URL), serverParse.app);
+server.use(prefix.concat("/dashboard-api"), dashboard);
+server.use(
+    prefix.concat("/dashboard-scheduler"),
+    schedulerAdapter.getRouter(),
+);
+
 
 // Let Next.js handle all other routes
 server.use((req, res) => {

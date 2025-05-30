@@ -1,5 +1,5 @@
 import Parse from "parse";
-import {Config} from "@/constantes/config.mjs";
+import { Config } from "../../../server/src/constantes/config";
 
 export const initParseInClientSide =  () => {
     Parse.initialize(Config.APP_ID, Config.JAVASCRIPT_KEY);

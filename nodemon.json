@@ -1,5 +1,6 @@
 {
-  "watch": ["server/server.mjs", "server/cloud/**/*"],
-  "ignore": [".next/*", "node_modules/*", "server/cloudTs/**/*"],
-  "ext": "js,json"
+  "watch": ["dist/"],
+  "ignore": [".next/*", "node_modules/*"],
+  "exec": "node dist/server.js",
+  "ext": "js,ts,cjs,mjs,json"
 }
