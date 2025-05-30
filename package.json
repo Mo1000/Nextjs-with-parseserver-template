@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "rimraf .next dist logs",
     "dev": "npm run prebuild && npm run cloud && cross-env NODE_ENV=development nodemon",
-    "dev:all": "concurrently \"npm run cloud:watch\" \"npm run dev\"",
+    "dev:all": "concurrently \"npm run dev\" \"npm run cloud:watch\"",
     "build": "npm run cloud && next build",
     "start": "NODE_ENV=production node dist/server.js",
     "lint": "next lint",
