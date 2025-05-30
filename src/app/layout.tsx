@@ -1,7 +1,7 @@
 import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
-import Parse from "parse/node";
+// import Parse from "parse/node";
 import {initParseInServerSide} from "@/utils/parse/initParseServerSide";
 import MainLayout from "@/layout/MainLayout";
 import {PropsWithChildren} from "react";
@@ -25,14 +25,6 @@ export const metadata: Metadata = {
 
 export default function RootLayout(props: PropsWithChildren) {
     const {children} = props;
-    Parse.Cloud.run('hello', {
-        a: 1,
-        b: 2
-    }).then((result) => {
-            console.log("Cloud function result:", result);
-
-        }
-    )
     return (
         <html lang='en'>
         <body
